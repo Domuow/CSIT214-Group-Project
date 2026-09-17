@@ -1,0 +1,1 @@
+// Temporary file for showcasing JS location in the project structure. This file (filename)is not intended for production use and may be removed or replaced in future updates.
