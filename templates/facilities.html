@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block js %}
+    <script src="{{ url_for('static', filename='js/facilities.js') }}"></script> <!-- Link to the JavaScript file for the facilities page -->
+{% endblock %}
+{% block content %}
+    <h1>Facilities</h1>
+    <p>Welcome to the Facilities page!</p>
+    <form>
+        <label for="date">Select a date:</label>
+        <input type="date" id="date" name="date">
+        <br>
+        <label for="Select a time range">Select a time range:</label>
+        <input type="time" id="start-time" name="start-time"> -
+        <input type="time" id="end-time" name="end-time">
+        <br>
+        <input type="submit" value="Submit" onclick="check_time();">
+    </form>
+    <ul>
+        {% for facility in facilities %}
+            <li>
+                <h3>{{ facility.name }}</h3>
+                <p>{{ facility.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>Facilities page is still under construction. Please check back later.</h2>
+{% endblock %}
