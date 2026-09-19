@@ -1,0 +1,42 @@
+<!-- This html file houses all the common elements of the website, such as the header, footer, and navigation bar. -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CSIT214 Group Project</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> <!-- Link to the CSS file for styling - in every page -->
+        {% block js %}{% endblock %} <!-- This is where the JavaScript for each page will be inserted using jinja2 templating -->
+    </head>
+    <body>
+        <!-- Navigation Bar to be styled -->
+        <div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/facilities">Find a facilities</a></li>
+                <li><a href="/bookings">Bookings</a></li>
+                <li><a href="/staff">Staff</a></li>
+            </ul>
+        </div>
+        
+        <div id="flash_messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <main>
+            {% block content %}{% endblock %}<!-- This is where the main content of each page will be inserted using jinja2 templating -->
+        </main>
+
+        <!-- Below is the footer of the website - this will be consistent across all pages and is at the bottom- will be style later 
+        so it sticks to the bottom of the page -->
+        <footer>
+            <p>Footer: 2026 CSIT214 Group Project</p>
+        </footer>
+    </body>
+</html>
