@@ -1,10 +1,10 @@
 # This is the main application file for the Flask web application. It sets up the routes and imports the necessary functions from other files in the route_logic directory.
 # Run this file in order to run the program! - MUST INSTALL FLASK FIRST - pip install flask
 
-from flask import Flask, render_template, Blueprint # Blueprint is imported for future use when modularizing the application (using multiple files)
+from flask import Flask, flash, render_template, Blueprint # Blueprint is imported for future use when modularizing the application (using multiple files)
 
 from route_logic.home import home_main  # Import the home_main function from the home.py file in the route_logic directory
-from route_logic.facilities import facilities_main  # Import the facilities_main function from the facilities.py file in the route_logic directory
+from route_logic.facilities import facilities_main, facilities_post  # Import the facilities_main function from the facilities.py file in the route_logic directory
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -16,11 +16,16 @@ app.secret_key = 'abc'  # Replace
 @app.route("/")
 def home():
     return home_main() # Call the home_main function to render the home page
+    
 
 # Temp Route for Facilities - to be alterd when facilities.py is implemented
 @app.route("/facilities")
 def facilities():
     return facilities_main() # Call the facilities_main function to render the facilities page
+
+@app.route("/facilities_search", methods=["POST"])
+def facilities_search():
+    return facilities_post() # Call the facilities_post function to handle the form submission for searching facilities
 
 # Temp Route for Bookings - to be alterd when bookings.py is implemented
 @app.route("/bookings")

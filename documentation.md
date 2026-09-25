@@ -9,3 +9,10 @@
 - Created a basic html page for facilites to showcase available facilities utilising static data
 - Implemented a form for user to search for facilites (BACKEND TBC)
 - Implemented flash messaging in flask to display messages to user
+
+25/09:
+- Fixed flash messages bug
+- Changed search form into post
+- Added place holder and debugging logic for post method
+- Added post route in main.py which returns a function from facilities.py
+- Post method still needs some tweaking and will be improved in new branch

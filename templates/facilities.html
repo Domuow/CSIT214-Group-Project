@@ -5,7 +5,8 @@
 {% block content %}
     <h1>Facilities</h1>
     <p>Welcome to the Facilities page!</p>
-    <form>
+    <p>Please select a date and time range to search for available facilities.</p>
+    <form method="POST" action="/facilities_search">
         <label for="date">Select a date:</label>
         <input type="date" id="date" name="date">
         <br>
@@ -13,7 +14,7 @@
         <input type="time" id="start-time" name="start-time"> -
         <input type="time" id="end-time" name="end-time">
         <br>
-        <input type="submit" value="Submit" onclick="check_time();">
+        <input type="submit" value="Submit"> <!-- Change to button and make type="button"? -->
     </form>
     <ul>
         {% for facility in facilities %}
