@@ -5,9 +5,13 @@ from flask import Flask, flash, render_template, Blueprint # Blueprint is import
 
 from route_logic.home import home_main  # Import the home_main function from the home.py file in the route_logic directory
 from route_logic.facilities import facilities_main, facilities_post  # Import the facilities_main function from the facilities.py file in the route_logic directory
+from database import init_db  # Import the init_db function from the database.py file in the route_logic directory
 
 # Initialize the Flask application
 app = Flask(__name__)
+
+# Creates the database and tables if they don't exist, and populates the facilities table with initial data
+init_db()
 
 # Set a secret key for the application - this is used for securely signing the session cookie and can be used for other security-related needs by extensions or your application
 app.secret_key = 'abc'  # Replace
