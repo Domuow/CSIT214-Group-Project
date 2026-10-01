@@ -1,28 +1,36 @@
 {% extends "layout.html" %}
 {% block js %}
-    <script src="{{ url_for('static', filename='js/facilities.js') }}"></script> <!-- Link to the JavaScript file for the facilities page -->
+    <!-- <script src="{{ url_for('static', filename='js/facilities.js') }}"></script> --> <!-- Link to the JavaScript file for the facilities page - commented as not used -->
 {% endblock %}
 {% block content %}
     <h1>Facilities</h1>
-    <p>Welcome to the Facilities page!</p>
-    <p>Please select a date and time range to search for available facilities.</p>
-    <form method="POST" action="/facilities_search">
+    <p>Select a date and time range to find facilities that can be booked.</p>
+    <form method="POST" action="{{ url_for('facilities_search') }}">
         <label for="date">Select a date:</label>
-        <input type="date" id="date" name="date">
+        <input type="date" id="date" name="date" value="{{ search.date }}" required>
         <br>
-        <label for="Select a time range">Select a time range:</label>
-        <input type="time" id="start-time" name="start-time"> -
-        <input type="time" id="end-time" name="end-time">
+        <label for="start-time">Select a time range:</label>
+        <input type="time" id="start-time" name="start-time" value="{{ search.start_time }}" required> -
+        <input type="time" id="end-time" name="end-time" value="{{ search.end_time }}" required>
         <br>
-        <input type="submit" value="Submit"> <!-- Change to button and make type="button"? -->
+        <input type="submit" value="Find available facilities">
     </form>
+    {% if searched %}
+        <h2>Available facilities</h2>
+        {% if not facilities %}
+            <p>No facilities are available for that date and time.</p>
+        {% endif %}
+    {% endif %}
     <ul>
         {% for facility in facilities %}
             <li>
                 <h3>{{ facility.name }}</h3>
                 <p>{{ facility.description }}</p>
+                <p>Capacity: {{ facility.capacity }}</p><!-- Capacity may be removed in the future, need to review project description -->
+                {% if searched %}
+                    <a href="{{ url_for('bookings') }}?facility_id={{ facility.id }}&date={{ search.date }}&start_time={{ search.start_time }}&end_time={{ search.end_time }}">Book this facility</a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
-    <h2>Facilities page is still under construction. Please check back later.</h2>
 {% endblock %}
