@@ -8,3 +8,7 @@
     ```bash
     pip install flask
     ```
+
+2. The application creates `facilities.db` automatically when it starts. The SQLite database contains:
+    - `facilities`: facility name, description and capacity.
+    - `bookings`: saved facility bookings and the booker's contact details.

@@ -16,3 +16,12 @@
 - Added place holder and debugging logic for post method
 - Added post route in main.py which returns a function from facilities.py
 - Post method still needs some tweaking and will be improved in new branch
+
+1/10:
+- Created database
+- DB 1.1:
+    - Refactored facililites.py
+    - Added DB functionality for facilities
+    - Improved html file for facilities
+    - Removed irelevnat js
+- Updated readme & documentation
