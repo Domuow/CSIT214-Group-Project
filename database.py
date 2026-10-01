@@ -111,3 +111,66 @@ def get_facilities(booking_date=None, start_time=None, end_time=None):
         # Return the list of available facilities that do not have any conflicting bookings for the specified date and time range
         return available 
 
+def create_booking(facility_id, booking_date, start_time, end_time, booker_name, booker_email):
+    values = valid_booking_values(booking_date, start_time, end_time)
+
+    if values is None or not booker_name.strip() or not booker_email.strip():
+        raise ValueError("Enter a future date, a valid time range, your name and your email.")
+
+    requested_date, _, _ = values # Unpack the validated date and time values, ignoring the start and end times since they are not needed for the availability check
+    with get_connection() as connection:
+        facility = connection.execute(
+            "SELECT id FROM facilities WHERE id = ?", (facility_id,)
+        ).fetchone()
+
+        # If the facility does not exist, raise a ValueError to indicate that the selected facility is invalid. This prevents creating a booking for a non-existent facility.
+        if facility is None:
+            raise ValueError("Selected facility does not exist.")
+
+        # Check for conflicts with existing bookings for the specified facility, date, and time range. If a conflict is found, raise a ValueError to indicate that the facility is already booked for part of the requested time range
+        conflict = connection.execute(
+            """
+            SELECT 1 FROM bookings
+            WHERE facility_id = ?
+                AND booking_date = ?
+                AND start_time < ?
+                AND end_time > ?
+            LIMIT 1
+            """,
+            (facility_id, requested_date.isoformat(), end_time, start_time),
+        ).fetchone()
+
+        # If a conflict is found (i.e., there is an existing booking that overlaps with the requested time), raise a ValueError to indicate that the facility is already booked for part of the requested time range. This prevents double-booking and ensures that the facility is only booked when it is available.
+        if conflict:
+            raise ValueError("That facility is already booked for part of this time range.")
+
+        # Insert the new booking into the bookings table with the provided details (facility ID, ...) in the database.
+        cursor = connection.execute(
+            """
+            INSERT INTO bookings
+                (facility_id, booking_date, start_time, end_time, booker_name, booker_email)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (
+                facility_id,
+                requested_date.isoformat(),
+                start_time,
+                end_time,
+                booker_name.strip(),
+                booker_email.strip(),
+            ),
+        )
+        # Return the ID of the newly created booking record
+        return cursor.lastrowid
+
+# Retrieves all bookings from the database, including the associated facility name for each booking. The results are ordered by booking date and start time
+def get_bookings():
+    with get_connection() as connection:
+        return connection.execute(
+            """
+            SELECT bookings.*, facilities.name AS facility_name
+            FROM bookings
+            JOIN facilities ON facilities.id = bookings.facility_id
+            ORDER BY booking_date, start_time
+            """
+        ).fetchall()
