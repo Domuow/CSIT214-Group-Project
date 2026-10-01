@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Bookings</h1>
+    <p>Complete the form to save a facility booking.</p>
+    <form method="POST" action="{{ url_for('save_booking') }}">
+        <label for="facility_id">Facility:</label>
+        <select id="facility_id" name="facility_id" required>
+            <option value="">Select a facility</option>
+            {% for facility in facilities %}
+                <option value="{{ facility.id }}">{{ facility.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+        <br>
+        <label for="start-time">Start time:</label>
+        <input type="time" id="start-time" name="start-time" required>
+        <br>
+        <label for="end-time">End time:</label>
+        <input type="time" id="end-time" name="end-time" required>
+        <br>
+        <label for="booker_name">Your name:</label>
+        <input type="text" id="booker_name" name="booker_name" required>
+        <br>
+        <label for="booker_email">Your email:</label>
+        <input type="email" id="booker_email" name="booker_email" required>
+        <br>
+        <input type="submit" value="Save booking">
+    </form>
+
+    <h2>Saved bookings - TEMPOARY TO SHOW ALL SAVED BOOKINGS IN DATABASE</h2>
+    {% if bookings %}
+        <ul>
+            {% for booking in bookings %}
+                <li>
+                    <strong>{{ booking.facility_name }}</strong>:
+                    {{ booking.booking_date }} from {{ booking.start_time }} to {{ booking.end_time }}
+                    for {{ booking.booker_name }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No bookings have been saved.</p>
+    {% endif %}
+{% endblock %}

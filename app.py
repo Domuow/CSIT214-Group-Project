@@ -3,6 +3,7 @@
 
 from flask import Flask, flash, render_template, Blueprint # Blueprint is imported for future use when modularizing the application (using multiple files)
 
+from route_logic.bookings import bookings_main, bookings_post
 from route_logic.home import home_main  # Import the home_main function from the home.py file in the route_logic directory
 from route_logic.facilities import facilities_main, facilities_post  # Import the facilities_main function from the facilities.py file in the route_logic directory
 from database import init_db  # Import the init_db function from the database.py file in the route_logic directory
@@ -31,10 +32,14 @@ def facilities():
 def facilities_search():
     return facilities_post() # Call the facilities_post function to handle the form submission for searching facilities
 
-# Temp Route for Bookings - to be alterd when bookings.py is implemented
 @app.route("/bookings")
 def bookings():
-    return "Bookings page is under construction. Please check back later." # Placeholder response for the bookings page
+    return bookings_main()
+
+
+@app.route("/bookings", methods=["POST"])
+def save_booking():
+    return bookings_post()
 
 # Temp Route for Staff - to be alterd when staff.py is implemented
 @app.route("/staff")

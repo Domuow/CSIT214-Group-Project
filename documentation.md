@@ -25,3 +25,8 @@
     - Improved html file for facilities
     - Removed irelevnat js
 - Updated readme & documentation
+- B1.0:
+    - Added booking functionality
+    - Added booking HTML
+    - Added and altered booking route
+    - Added booking data handling in database.py
