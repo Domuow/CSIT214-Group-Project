@@ -1,19 +1,22 @@
 {% extends "layout.html" %}
 {% block js %}
     <!-- <script src="{{ url_for('static', filename='js/facilities.js') }}"></script> --> <!-- Link to the JavaScript file for the facilities page - commented as not used -->
+    <link href="/CSIT214-Group-Project/static/css/facilities.css" rel="stylesheet" />
 {% endblock %}
 {% block content %}
     <h1>Facilities</h1>
     <p>Select a date and time range to find facilities that can be booked.</p>
+<hr />
     <form method="POST" action="{{ url_for('facilities_search') }}">
         <label for="date">Select a date:</label>
-        <input type="date" id="date" name="date" value="{{ search.date }}" required>
+        <input class="inputBox" type="date" id="date" name="date" value="{{ search.date }}" required>
         <br>
         <label for="start-time">Select a time range:</label>
-        <input type="time" id="start-time" name="start-time" value="{{ search.start_time }}" required> -
-        <input type="time" id="end-time" name="end-time" value="{{ search.end_time }}" required>
+        <input class="inputBox" type="time" id="start-time" name="start-time" value="{{ search.start_time }}" required> -
+        <input class="inputBox" type="time" id="end-time" name="end-time" value="{{ search.end_time }}" required>
         <br>
-        <input type="submit" value="Find available facilities">
+        <input class="submit" type="submit" value="Find facilities">
+<hr />
     </form>
     {% if searched %}
         <h2>Available facilities</h2>
