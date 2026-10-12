@@ -15,7 +15,7 @@
         <input class="inputBox" type="time" id="start-time" name="start-time" value="{{ search.start_time }}" required> -
         <input class="inputBox" type="time" id="end-time" name="end-time" value="{{ search.end_time }}" required>
         <br>
-        <input class="submit" type="submit" value="Find facilities">
+        <input class="button" type="submit" value="Find facilities">
 <hr />
     </form>
     {% if searched %}
@@ -31,7 +31,7 @@
                 <p>{{ facility.description }}</p>
                 <p>Capacity: {{ facility.capacity }}</p><!-- Capacity may be removed in the future, need to review project description -->
                 {% if searched %}
-                    <a href="{{ url_for('bookings') }}?facility_id={{ facility.id }}&date={{ search.date }}&start_time={{ search.start_time }}&end_time={{ search.end_time }}">Book this facility</a>
+                    <button class="button" type="button" data-url="{{ url_for('bookings', facility_id=facility.id, date=search.date, start_time=search.start_time, end_time=search.end_time) }}" onclick="window.location.href=this.dataset.url">Book this facility</button>
                 {% endif %}
             </li>
         {% endfor %}
