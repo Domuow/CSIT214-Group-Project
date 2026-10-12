@@ -31,8 +31,15 @@
     - Added and altered booking route
     - Added booking data handling in database.py
 
+4/10:
+- Megred pull request 2:
+    - Created facilllities.css in order to style the facilities.html page
 
 12/10:
+- Merged pull request 3:
+    - Improved overall css styling 
+    - Added css styling for navigation bar
+    - Created bookings html page specific styling
 
 - Merged Staff Branch (STAFf 1.0)
     - Added staff dashboard
