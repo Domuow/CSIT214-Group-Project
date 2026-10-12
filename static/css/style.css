@@ -34,3 +34,13 @@ footer {
     width: 100%;
     text-align: center;
 }
+
+#footer-separator {
+    margin-top: 27px;
+    margin-bottom: 10px;
+}
+
+#flash_messages {
+    color: red;
+    font-weight: bold;
+}

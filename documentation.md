@@ -47,3 +47,6 @@
     - Created 3 status for bookings, pending, approved and cancelled
     - Made it so existing DB entries would default to pending
     - Updated db.py to reflect these changes
+
+- Removed developemnt elements
+- Updated footer & flash styling
