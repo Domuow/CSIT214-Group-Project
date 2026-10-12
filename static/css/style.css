@@ -1,0 +1,31 @@
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.navigationContainer {
+  text-align: center;
+}
+.navigationContainer table {
+  margin: 0 auto; 
+}
+
+table {
+    border-collapse: collapse;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color:rgb(136, 37, 37);
+    font-size: large;
+    margin-inline: 10px;
+}
+
+td {
+    border-left: 3px black solid;
+    border-right: 3px black solid;
+}
+
+a:hover {
+    color: black;
+}

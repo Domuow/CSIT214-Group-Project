@@ -1,10 +1,14 @@
 {% extends "layout.html" %}
+{% block js %}
+    <link href="{{ url_for('static', filename='css/bookings.css') }}" rel="stylesheet" />
+{% endblock %}
 {% block content %}
     <h1>Bookings</h1>
-    <p>Complete the form to save a facility booking.</p>
+    <p> <b>Complete the form to save a facility booking.</b></p>
     <form method="POST" action="{{ url_for('save_booking') }}">
+        <hr/>
         <label for="facility_id">Facility:</label>
-        <select id="facility_id" name="facility_id" required>
+        <select class="inputBox" id="facility_id" name="facility_id" required>
             <option value="">Select a facility</option>
             {% for facility in facilities %}
                 <option value="{{ facility.id }}">{{ facility.name }}</option>
@@ -12,21 +16,22 @@
         </select>
         <br>
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required>
+        <input class="inputBox" type="date" id="date" name="date" required>
         <br>
         <label for="start-time">Start time:</label>
-        <input type="time" id="start-time" name="start-time" required>
+        <input  class="inputBox" type="time" id="start-time" name="start-time" required>
         <br>
         <label for="end-time">End time:</label>
-        <input type="time" id="end-time" name="end-time" required>
+        <input  class="inputBox" type="time" id="end-time" name="end-time" required>
         <br>
         <label for="booker_name">Your name:</label>
-        <input type="text" id="booker_name" name="booker_name" required>
+        <input  class="inputBox" type="text" id="booker_name" name="booker_name" required>
         <br>
         <label for="booker_email">Your email:</label>
-        <input type="email" id="booker_email" name="booker_email" required>
+        <input  class="inputBox" type="email" id="booker_email" name="booker_email" required>
+        <hr/>
         <br>
-        <input type="submit" value="Save booking">
+        <input  class="submit" type="submit" value="Save booking">
     </form>
 
     <h2>Saved bookings - TEMPOARY TO SHOW ALL SAVED BOOKINGS IN DATABASE</h2>
