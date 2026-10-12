@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Staff booking management</h1>
+    <p>Review community booking requests and approve or cancel them.</p>
+
+    <!-- Display a table of all bookings -->
+    {% if bookings %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Facility</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Booker</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Display each booking in a row -->
+                {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.facility_name }}</td>
+                        <td>{{ booking.booking_date }}</td>
+                        <td>{{ booking.start_time }} - {{ booking.end_time }}</td>
+                        <td>{{ booking.booker_name }}<br>{{ booking.booker_email }}</td>
+                        <td>{{ booking.status }}</td>
+                        <td>
+                            <!-- Provide options to approve or cancel each booking if it is not already approved or cancelled -->
+                            {% if booking.status != "Approved" %}
+                                <form method="POST" action="{{ url_for('update_staff_booking') }}">
+                                    <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                                    <input type="hidden" name="status" value="Approved">
+                                    <button type="submit">Approve</button>
+                                </form>
+                            {% endif %}
+                            <!-- Provide a way to cancel a booking if it is not already cancelled -->
+                            {% if booking.status != "Cancelled" %}
+                                <form method="POST" action="{{ url_for('update_staff_booking') }}">
+                                    <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                                    <input type="hidden" name="status" value="Cancelled">
+                                    <button type="submit">Cancel</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <!-- Display a message if no bookings are available -->
+        <p>No booking requests are currently available.</p>
+    {% endif %}
+{% endblock %}
