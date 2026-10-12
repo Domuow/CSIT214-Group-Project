@@ -11,4 +11,9 @@
 
 2. The application creates `facilities.db` automatically when it starts. The SQLite database contains:
     - `facilities`: facility name, description and capacity.
-    - `bookings`: saved facility bookings and the booker's contact details.
+    - `bookings`: saved facility bookings, the booker's contact details and a
+      `Pending`, `Approved` or `Cancelled` status.
+
+3. Basic staff functionality is available at `/staff`. Staff can review saved
+   booking requests and approve or cancel them. This is an initial workflow
+   prototype of the wider system.

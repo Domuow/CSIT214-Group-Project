@@ -32,6 +32,8 @@ def init_db():
                 end_time TEXT NOT NULL,
                 booker_name TEXT NOT NULL,
                 booker_email TEXT NOT NULL,
+                status TEXT NOT NULL DEFAULT 'Pending'
+                    CHECK (status IN ('Pending', 'Approved', 'Cancelled')),
                 created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 CHECK (start_time < end_time)
             );
@@ -40,6 +42,15 @@ def init_db():
                 ON bookings (facility_id, booking_date);
             """
         )
+        # Check if the "status" column exists in the bookings table, and if not, add it with a default value of 'Pending'
+        booking_columns = {
+            column["name"]
+            for column in connection.execute("PRAGMA table_info(bookings)").fetchall()
+        }
+        if "status" not in booking_columns:
+            connection.execute(
+                "ALTER TABLE bookings ADD COLUMN status TEXT NOT NULL DEFAULT 'Pending'"
+            )
         add_facilities(connection)
 
 # Add placeholder facilities to the database for testing purposes
@@ -174,3 +185,22 @@ def get_bookings():
             ORDER BY booking_date, start_time
             """
         ).fetchall()
+
+
+def update_booking_status(booking_id, status):
+    # Validate the provided status value to ensure it is either "Approved" or "Cancelled"
+    if status not in {"Approved", "Cancelled"}:
+        raise ValueError("Invalid booking status.")
+
+    # Update the booking status
+    with get_connection() as connection:
+        booking = connection.execute(
+            "SELECT id FROM bookings WHERE id = ?", (booking_id,)
+        ).fetchone()
+        if booking is None:
+            raise ValueError("Booking does not exist.")
+
+        connection.execute(
+            "UPDATE bookings SET status = ? WHERE id = ?",
+            (status, booking_id),
+        )

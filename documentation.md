@@ -30,3 +30,13 @@
     - Added booking HTML
     - Added and altered booking route
     - Added booking data handling in database.py
+
+
+12/10:
+
+- Merged Staff Branch (STAFf 1.0)
+    - Added staff dashboard
+    - Created staff approval for bookings (appove/cancell)
+    - Created 3 status for bookings, pending, approved and cancelled
+    - Made it so existing DB entries would default to pending
+    - Updated db.py to reflect these changes
