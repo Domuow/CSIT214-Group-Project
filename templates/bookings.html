@@ -11,27 +11,31 @@
         <select class="inputBox" id="facility_id" name="facility_id" required>
             <option value="">Select a facility</option>
             {% for facility in facilities %}
-                <option value="{{ facility.id }}">{{ facility.name }}</option>
+                {% if facility.id == facility_id %}
+                    <option value="{{ facility.id }}" selected>{{ facility.name }}</option>
+                {% else %}
+                    <option value="{{ facility.id }}">{{ facility.name }}</option>
+                {% endif %}
             {% endfor %}
         </select>
         <br>
         <label for="date">Date:</label>
-        <input class="inputBox" type="date" id="date" name="date" required>
+        <input class="inputBox" type="date" id="date" name="date" value="{{date}}" required>
         <br>
         <label for="start-time">Start time:</label>
-        <input  class="inputBox" type="time" id="start-time" name="start-time" required>
+        <input  class="inputBox" type="time" id="start-time" name="start-time" value="{{start_time}}" required>
         <br>
         <label for="end-time">End time:</label>
-        <input  class="inputBox" type="time" id="end-time" name="end-time" required>
+        <input  class="inputBox" type="time" id="end-time" name="end-time" value="{{end_time}}" required>
         <br>
         <label for="booker_name">Your name:</label>
-        <input  class="inputBox" type="text" id="booker_name" name="booker_name" required>
+        <input  class="inputBox" type="text" id="booker_name" name="booker_name" value="{{booker_name}}" required>
         <br>
         <label for="booker_email">Your email:</label>
-        <input  class="inputBox" type="email" id="booker_email" name="booker_email" required>
+        <input  class="inputBox" type="email" id="booker_email" name="booker_email" value="{{booker_email}}" required>
         <hr/>
         <br>
-        <input  class="submit" type="submit" value="Save booking">
+        <input class="button" type="submit" value="Save booking">
     </form>
 
     <h2>Saved bookings - TEMPOARY TO SHOW ALL SAVED BOOKINGS IN DATABASE</h2>

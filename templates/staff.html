@@ -5,7 +5,7 @@
 
     <!-- Display a table of all bookings -->
     {% if bookings %}
-        <table>
+        <table class="booking-table">
             <thead>
                 <tr>
                     <th>Facility</th>
@@ -23,15 +23,19 @@
                         <td>{{ booking.facility_name }}</td>
                         <td>{{ booking.booking_date }}</td>
                         <td>{{ booking.start_time }} - {{ booking.end_time }}</td>
-                        <td>{{ booking.booker_name }}<br>{{ booking.booker_email }}</td>
+                        <td class="booker-cell">
+                            <div>{{ booking.booker_name }}</div>
+                            <div class="booker-email">{{ booking.booker_email }}</div>
+                        </td>
                         <td>{{ booking.status }}</td>
                         <td>
+                            <div class="staff-actions">
                             <!-- Provide options to approve or cancel each booking if it is not already approved or cancelled -->
                             {% if booking.status != "Approved" %}
                                 <form method="POST" action="{{ url_for('update_staff_booking') }}">
                                     <input type="hidden" name="booking_id" value="{{ booking.id }}">
                                     <input type="hidden" name="status" value="Approved">
-                                    <button type="submit">Approve</button>
+                                    <button class="button" type="submit">Approve</button>
                                 </form>
                             {% endif %}
                             <!-- Provide a way to cancel a booking if it is not already cancelled -->
@@ -39,9 +43,10 @@
                                 <form method="POST" action="{{ url_for('update_staff_booking') }}">
                                     <input type="hidden" name="booking_id" value="{{ booking.id }}">
                                     <input type="hidden" name="status" value="Cancelled">
-                                    <button type="submit">Cancel</button>
+                                    <button class="button" type="submit">Cancel</button>
                                 </form>
                             {% endif %}
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}
