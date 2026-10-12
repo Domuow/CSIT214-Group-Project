@@ -4,7 +4,15 @@ from database import create_booking, get_bookings, get_facilities
 
 
 def bookings_main():
-	return render_template("bookings.html", bookings=get_bookings(), facilities=get_facilities())
+	return render_template(
+		"bookings.html",
+		bookings=get_bookings(), 
+		facilities=get_facilities(),
+		facility_id=request.args.get("facility_id", None, type=int),
+		date=request.args.get("date", None, type=str),
+		start_time=request.args.get("start_time", None, type=str),
+		end_time=request.args.get("end_time", None, type=str)
+		)
 
 
 def bookings_post():
