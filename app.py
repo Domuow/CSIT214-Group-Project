@@ -18,13 +18,13 @@ init_db()
 # Set a secret key for the application - this is used for securely signing the session cookie and can be used for other security-related needs by extensions or your application
 app.secret_key = 'abc'  # Replace
 
+# Web App routes
+
 # Define the route for the home/root URL
 @app.route("/")
 def home():
     return home_main() # Call the home_main function to render the home page
-    
 
-# Temp Route for Facilities - to be alterd when facilities.py is implemented
 @app.route("/facilities")
 def facilities():
     return facilities_main() # Call the facilities_main function to render the facilities page
@@ -48,8 +48,6 @@ def staff():
 @app.route("/staff", methods=["POST"])
 def update_staff_booking():
     return staff_post()
-
-# More routes can be added here as needed, following a similar pattern to the above
 
 
 # Start the local development server
