@@ -16,7 +16,14 @@
                     <td><a href="/">Home</a></td>
                     <td><a href="/facilities">Find a facilities</a></td>
                     <td><a href="/bookings">Bookings</a></td>
-                    <td><a href="/staff">Staff</a></td>
+                    {% if current_user and current_user.role == "staff" %}
+                        <td><a href="/staff">Staff</a></td>
+                    {% endif %}
+                    {% if current_user %}
+                        <td><a href="{{ url_for('logout') }}">Log out ({{ current_user.name }})</a></td>
+                    {% else %}
+                        <td><a href="{{ url_for('login') }}">Log in</a></td>
+                    {% endif %}
                 </tr>
             </table>
         </div>

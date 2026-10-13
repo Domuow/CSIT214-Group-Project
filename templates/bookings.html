@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
     <h1>Bookings</h1>
-    <p> <b>Complete the form to save a facility booking.</b></p>
+    <p><b>Complete the form to save a facility booking.</b></p>
     <form method="POST" action="{{ url_for('save_booking') }}">
         <hr/>
         <label for="facility_id">Facility:</label>
@@ -29,21 +29,21 @@
         <input  class="inputBox" type="time" id="end-time" name="end-time" value="{{end_time}}" required>
         <br>
         <label for="booker_name">Your name:</label>
-        <input  class="inputBox" type="text" id="booker_name" name="booker_name" value="{{booker_name}}" required>
+        <input class="inputBox" type="text" id="booker_name" name="booker_name" value="{{ booker_name }}" readonly>
         <br>
         <label for="booker_email">Your email:</label>
-        <input  class="inputBox" type="email" id="booker_email" name="booker_email" value="{{booker_email}}" required>
+        <input class="inputBox" type="email" id="booker_email" name="booker_email" value="{{ booker_email }}" readonly>
         <hr/>
         <br>
         <input class="button" type="submit" value="Save booking">
     </form>
 
-    <h2>Saved bookings - TEMPOARY TO SHOW ALL SAVED BOOKINGS IN DATABASE</h2>
+    <h2>Your saved bookings</h2>
     {% if bookings %}
         <ul>
             {% for booking in bookings %}
                 <li>
-                    <strong>{{ booking.facility_name }}</strong>:
+                    <strong>{{ booking.facility_name }} (<i>Status: {{ booking.status }}</i>)</strong>:
                     {{ booking.booking_date }} from {{ booking.start_time }} to {{ booking.end_time }}
                     for {{ booking.booker_name }}
                 </li>

@@ -14,6 +14,11 @@
     - `bookings`: saved facility bookings, the booker's contact details and a
       `Pending`, `Approved` or `Cancelled` status.
 
-3. Basic staff functionality is available at `/staff`. Staff can review saved
-   booking requests and approve or cancel them. This is an initial workflow
-   prototype of the wider system.
+3. Log in at `/login` to create bookings and view your own bookings. The
+   prototype has two hardcoded accounts:
+   - User: `user` / `user123`
+   - Staff administrator: `admin` / `admin123`
+
+4. Staff functionality is available at `/staff` only after logging in as the
+   staff administrator. Staff can review saved booking requests and approve or
+   cancel them. This is an initial workflow prototype of the wider system.

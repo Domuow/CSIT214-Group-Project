@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Log in</h1>
+    <p>Log in to view your bookings. Staff can also manage all booking requests.</p>
+
+    <form method="POST" action="{{ url_for('login', next=request.args.get('next')) }}">
+        <label for="username">Username:</label>
+        <input class="inputBox" type="text" id="username" name="username" required autofocus>
+        <br>
+        <label for="password">Password:</label>
+        <input class="inputBox" type="password" id="password" name="password" required>
+        <br>
+        <input class="button" type="submit" value="Log in">
+    </form>
+
+    <p><strong>Demo accounts:</strong> user / user123 and admin / admin123</p>
+{% endblock %}
