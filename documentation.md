@@ -50,3 +50,20 @@
 
 - Removed developemnt elements
 - Updated footer & flash styling
+
+13/10:
+- Merge pull request 5:
+    - Added/fixed prefill booking from 
+    - Fixed some css issues
+    - Improveed some css
+
+
+- Created login system (merge 6):
+    - Added login/logout routes & logic to login.py
+    - Added the login page in login.html
+    - Protected both staff page routes so only the admin account can access them
+    - Hid the Staff navigation link from normal users in layout.html
+    - Restricted the bookings page to logged-in users
+    - Users now only see bookings associated with their logged-in account email
+    - New bookings automatically use the logged-in user’s name and email in bookings.py
+    - Updated account and usage details in README.md
