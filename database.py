@@ -174,17 +174,20 @@ def create_booking(facility_id, booking_date, start_time, end_time, booker_name,
         # Return the ID of the newly created booking record
         return cursor.lastrowid
 
-# Retrieves all bookings from the database, including the associated facility name for each booking. The results are ordered by booking date and start time
-def get_bookings():
+# Retrieves all bookings from the databas, the results are ordered by booking date and start time
+def get_bookings(booker_email=None):
     with get_connection() as connection:
-        return connection.execute(
-            """
+        query = """
             SELECT bookings.*, facilities.name AS facility_name
             FROM bookings
             JOIN facilities ON facilities.id = bookings.facility_id
-            ORDER BY booking_date, start_time
-            """
-        ).fetchall()
+        """
+        parameters = ()
+        if booker_email is not None:
+            query += " WHERE bookings.booker_email = ?"
+            parameters = (booker_email,)
+        query += " ORDER BY booking_date, start_time"
+        return connection.execute(query, parameters).fetchall()
 
 
 def update_booking_status(booking_id, status):
