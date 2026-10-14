@@ -67,3 +67,6 @@
     - Users now only see bookings associated with their logged-in account email
     - New bookings automatically use the logged-in user’s name and email in bookings.py
     - Updated account and usage details in README.md
+
+14/10:
+- Completed final testing
